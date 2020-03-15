@@ -1,0 +1,9 @@
+tests/compat/*.bin
+tests/compat/*.elf
+tests/compat/*.o
+tests/compat/*.ulp
+tests/compat/*.log
+demo.ulp
+*.pyc
+*.pyo
+.DS_Store
