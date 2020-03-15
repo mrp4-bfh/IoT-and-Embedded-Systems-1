@@ -1,13 +1,15 @@
-from machine import Pin, I2C, idle, RTC, freq
+from machine import Pin, I2C, idle, RTC, freq, lightsleep, deepsleep
 from time import sleep
 import BME280
 import os
+from esp32 import ULP
 
 rtc = RTC()
 rtc.datetime((2020, 3, 17, 0, 6, 0, 0, 0))
 
 # ESP32 - Pin assignement
 i2c = I2C(scl=Pin(22), sda=Pin(21), freq=10000)
+led = Pin(2, Pin.OUT)
 
 # Scan for your BME280 with the i2c.scan() function
 try:
@@ -36,3 +38,6 @@ while i < 20:
 
     sleep(0.5)
     i += 1
+    led.value(not led.value())
+
+print("done!!")
