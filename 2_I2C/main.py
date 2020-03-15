@@ -1,5 +1,5 @@
 from machine import I2C, RTC, Pin
-from time import sleep
+from time import sleepi
 import BME280
 
 rtc = RTC()
@@ -7,6 +7,7 @@ rtc.datetime((2020, 3, 17, 0, 6, 0, 0, 0))
 
 # ESP32 - Pin assignement
 i2c = I2C(scl=Pin(22), sda=Pin(21), freq=10000)
+#i2c2 = I2C(scl=Pin(16), sda=Pin(17), freq=10000)
 
 # Scan for your BME280 with the i2c.scan() function
 try:
