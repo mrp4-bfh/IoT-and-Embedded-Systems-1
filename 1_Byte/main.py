@@ -20,11 +20,8 @@ def test():
 #****************** rutine *******************
 
 x = int(input("enter a value: "))
-y = "{0:b}".format(x)
+y = "{0:08b}".format(x)
 length = int(len(y))-1
 
 for i in range(8):
-    if(i <= int(length)):
-        bit[i].value(int(y[(length-i)])) #turn direction
-    else:
-        bit[i].value(0)
+    bit[i].value(int(y[(length-i)])) #turn direction (lowest bit = LED 1)
