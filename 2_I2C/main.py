@@ -25,6 +25,5 @@ for i in range(20):
     # Build a String
     sensor_readings = {'temp: '+temp+' humy: '+hum+' presure: '+pres+' log: '+time}
     print(sensor_readings)
-    i += 1
     sleep(0.5)
 
