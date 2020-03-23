@@ -2,38 +2,34 @@ from machine import Pin
 from time import sleep
 
 led = Pin(2, Pin.OUT)
-pir = Pin(15, Pin.IN)
+pir = Pin(18, Pin.IN)
 
 # Semaphore Block
 block = False
+# Run Signal
+run = False
 
 # Interrupt Handler 
 def handle_interrupt(v):
     global block
+    global run
     if not block:
         block = True
+        run = not run
         led.value(0)
         print("INTERRUPT PERFORMED")
-        sleep(3)
-
-# Wait method with short sleep to avoid daemon threads
-def wait(msec=1):
-    global block
-    for i in range(msec):
-        sleep(0.1)
-        if block:
-            break
 
 # Main loop
-def rutine():
+def rutime():
     global block
+    global run
     while True:
-        led.value(1)
-        wait(5)
+        led.value(run)
+        sleep(1)
         led.value(0)
-        wait(5)
+        sleep(1)
         block = False
 
 # call interrupt an main loop
 pir.irq(trigger=pir.IRQ_RISING, handler=handle_interrupt)
-rutine()
+rutime()
