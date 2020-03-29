@@ -54,10 +54,10 @@ disp.init()
 
 c = 0
 while True:
-    #routine
-    if(state==0):
+    # routine
+    if state==0:
         c += 1
-        #show sensor data
+        # show sensor data
         disp.printValue(sensor_data[show])      #show value on 7 segment display
         if (c > refresh_rate*50):
             sensor_data = getSensorData()       #refresh
@@ -68,14 +68,14 @@ while True:
             disp.dot(show)                    #show temp or humidit
             c = 0
 
-    #Menu
+    # menu
     if yellow.value() or not state==0:
         btc1 += 1
         if btc1 > 100:
             state==1
         
             #1 refresh rate ********************
-            if state == 1:
+            if state==1:
                 disp.menu('t',refresh_rate)
                 if blue.value() and not block:
                     block = True
@@ -84,7 +84,7 @@ while True:
                     refresh_rate = 1
 
             #2 temp or humy ********************
-            if state == 2:
+            if state==2:
                 disp.menu('d',show)
                 if blue.value() and not block:
                     block = True
@@ -94,7 +94,7 @@ while True:
                 disp.dot(show)
 
             #3 iteration temp humy **************
-            if state == 3:
+            if state==3:
                 disp.menu('i',indentation)
                 if blue.value() and not block:
                     block = True
@@ -103,7 +103,7 @@ while True:
                     indentation = 0
            
             #4 return  **************************
-            if state == 4:
+            if state==4:
                 disp.menu('r',12)
                 if blue.value():
                     btc1 = 0
@@ -113,7 +113,7 @@ while True:
                     state=0
 
             #5 exit menu  ********************
-            if state == 5:
+            if state==5:
                 disp.menu('e',12)
                 if blue.value():
                     btc2 += 1
@@ -121,7 +121,7 @@ while True:
                         disp.test()
                         break
 
-            #Menu Handler ********************    
+            # menu handler ********************    
             if yellow.value() and not block:
                 block = True
                 state +=1
