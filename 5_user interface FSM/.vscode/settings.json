@@ -1,0 +1,7 @@
+{
+    "python.autoComplete.extraPaths": [
+        "C:\\Users\\mrp4\\VS Code\\api_stubs"
+    ],
+    "python.pythonPath": "C:\\Users\\patri\\AppData\\Local\\Programs\\Python\\Python38\\python.exe",
+    "python.linting.enabled": false
+}

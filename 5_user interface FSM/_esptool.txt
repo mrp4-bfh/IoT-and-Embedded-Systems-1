@@ -1,0 +1,6 @@
+Using esptools insted of uPyCraft
+
+python -m pip install esptool
+esptool.py --help
+esptool.py erase_flash
+esptool.py --port COM4 write_flash 0x1000 C:\Users\patri\Workspace\esp32-idf3-20191220-v1.12.bin

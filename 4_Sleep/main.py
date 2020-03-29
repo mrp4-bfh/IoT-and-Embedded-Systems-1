@@ -1,25 +1,35 @@
-#Task 4.2 Wake up!
-
-import esp32
-from machine import Pin, deepsleep, DEEPSLEEP_RESET, reset_cause
+from machine import Pin
 from time import sleep
 
-led=Pin(2, Pin.OUT)
-button = Pin(14, Pin.IN)
+led = Pin(2, Pin.OUT)
+pir = Pin(18, Pin.IN)
 
-#Note: with this wake up source, you can only use pins that are RTC GPIOs
-#take a look at our ESP32 GPIO reference guide. 
-#level parameter can be: esp32.WAKEUP_ANY_HIGH or esp32.WAKEUP_ALL_LOW
-esp32.wake_on_ext0(pin = button, level = esp32.WAKEUP_ANY_HIGH)
+# Semaphore Block
+block = False
+# Run Signal
+run = False
 
-# check if the device woke from a deep sleep
-if reset_cause() == DEEPSLEEP_RESET:
-    print('woke from a deep sleep')
+# Interrupt Handler 
+def handle_interrupt(v):
+    global block
+    global run
+    if not block:
+        block = True
+        run = not run
+        led.value(0)
+        print("INTERRUPT PERFORMED")
 
-print('start work')
-led.value(1)
-sleep(5)
-print('Going to sleep')
-led.value(0)
-#put the device to deepsleep
-deepsleep()
+# Main loop
+def rutime():
+    global block
+    global run
+    while True:
+        led.value(run)
+        sleep(1)
+        led.value(0)
+        sleep(1)
+        block = False
+
+# call interrupt an main loop
+pir.irq(trigger=pir.IRQ_RISING, handler=handle_interrupt)
+rutime()
