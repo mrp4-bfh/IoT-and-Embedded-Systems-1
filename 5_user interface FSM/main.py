@@ -38,7 +38,7 @@ refresh_rate = 1
 btc1 = 0
 btc2 = 0
 show = 0
-indentation = 0
+iteration = 0
 
 #*************** helper fuction *******************
 
@@ -61,9 +61,9 @@ while True:
         disp.printValue(sensor_data[show])      #show value on 7 segment display
         if (c > refresh_rate*50):
             sensor_data = getSensorData()       #refresh
-            if indentation and show==1:         #indentation on or off
+            if iteration and show==1:         #iter on or off
                 show=0
-            elif indentation and show==0:
+            elif iteration and show==0:
                 show=1
             disp.dot(show)                    #show temp or humidit
             c = 0
@@ -95,12 +95,12 @@ while True:
 
             #3 iteration temp humy **************
             if state==3:
-                disp.menu('i',indentation)
+                disp.menu('i',iteration)
                 if blue.value() and not block:
                     block = True
-                    indentation += 1
-                elif(indentation>1):
-                    indentation = 0
+                    iteration += 1
+                elif(iteration>1):
+                    iteration = 0
            
             #4 return  **************************
             if state==4:
